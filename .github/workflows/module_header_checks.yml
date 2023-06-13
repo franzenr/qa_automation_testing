@@ -1,0 +1,13 @@
+name: Check module header content
+on:
+  pull_request:
+    branches: [ "main" ]
+    types: [opened, synchronize]
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Run script to check all module header field content
+        run: bash ../../assets/fields_check_template_specific.sh
