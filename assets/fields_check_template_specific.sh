@@ -1,11 +1,11 @@
-standard_fields=$(cat standard_fields) #declaring the fields I want it to look for 
-wrapper_fields=$(cat wrapper_fields)
-exercise_fields=$(cat exercise_fields)
+standard_fields=$(cat assets/standard_fields) #declaring the fields I want it to look for 
+wrapper_fields=$(cat assets/wrapper_fields)
+exercise_fields=$(cat assets/exercise_fields)
 
-for FILE in ../*/* 
+for FILE in */* 
 
 do
-    if pcregrep -q "([^\/]+)\/\1.md" <<< $FILE  #searching file name as string for module naming convention, not searching within file itself
+    if grep -q -P "([^\/]+)\/\1.md" <<< $FILE  #searching file name as string for module naming convention, not searching within file itself
     then
         if grep -q "module_type: standard" $FILE
             then 
