@@ -14,6 +14,6 @@ jobs:
       - name: testing what various refs print as
         run: echo "ref - ${{ github.ref }} ref_name - ${{ github.ref_name }} ref head ${{ GITHUB.HEAD_REF }}" 
       - name: Get git diff to feed to script
-        run: git diff origin/main..origin/${{ github.head_ref }} > git_diff.txt
+        run: git diff origin/main origin/${{ github.head_ref }} > git_diff.txt
       - name: peek at diff to make sure it looks right
         run: cat git_diff.txt
