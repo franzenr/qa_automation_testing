@@ -1,4 +1,4 @@
-gawk BEGIN { RS = "diff --git" }   # splits diff file such that each file represented in the diff is treated as an individual record. each record is processed individually with the below statements
+gawk 'BEGIN { RS = "diff --git" }   # splits diff file such that each file represented in the diff is treated as an individual record. each record is processed individually with the below statements
 { 
     if (system( " bash assets/is_module.sh "$1 ) == 0 ) 
         { 
