@@ -10,4 +10,4 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Run script to check all module header field content
-        run: bash ../../assets/fields_check_template_specific.sh
+        run: bash assets/fields_check_template_specific.sh
