@@ -1,5 +1,4 @@
-rm -f version_issues #remove current version of file, if any. Supresses error/warning if file does not exist. Needed during development, should be able to remove when actually deploying.
-gawk 'BEGIN { RS = "diff --git" }   # splits diff file such that each file represented in the diff is treated as an individual record. each record is processed individually with the below statements
+awk 'BEGIN { RS = "diff --git" }   # splits diff file such that each file represented in the diff is treated as an individual record. each record is processed individually with the below statements
 { 
     if (system( "bash is_module.sh "$1 ) == 0 ) 
         { 
@@ -28,7 +27,7 @@ gawk 'BEGIN { RS = "diff --git" }   # splits diff file such that each file repre
             #do nothing, as only modules need to be checked for version number incrementation. 
         }
     
-} ' ../test_files/fake-diff.txt #also run against fake-diff-correct-only.txt 
+} ' $1 #also run against fake-diff-correct-only.txt 
 
 if [[ -s version_issues ]] # if file size > 0, ie there are issues with any of the modules
     then 
