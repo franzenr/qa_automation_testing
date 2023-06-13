@@ -12,6 +12,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      - name: testing what various refs print as
+        run: echo "ref - ${{ github.ref }} ref_name - ${{ github.ref_name }}" 
       - name: Get git diff to feed to script
         run: git diff main..${{ github.ref_name }} > git_diff.txt
       - name: peek at diff to make sure it looks right
