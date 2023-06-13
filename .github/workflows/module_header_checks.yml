@@ -4,6 +4,10 @@ on:
     branches: [ "main" ]
     types: [opened, synchronize]
 
+    # for manual running from Actions tab while figuring out
+  workflow_dispatch:
+
+
 jobs:
   check:
     runs-on: ubuntu-latest
