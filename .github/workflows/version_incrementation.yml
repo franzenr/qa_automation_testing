@@ -16,6 +16,6 @@ jobs:
       - name: Get git diff to feed to script
         run: |
           git fetch origin main
-          git diff origin/main origin/${{ github.head_ref }} > git_diff.txt
+          git diff origin/main ${{ github.head_ref }} > git_diff.txt
       - name: peek at diff to make sure it looks right
         run: cat git_diff.txt
