@@ -4,17 +4,14 @@ on:
     branches: [ "main" ]
     types: [opened, synchronize]
 
-    # for manual running from Actions tab while figuring out
-  workflow_dispatch:
-
 jobs:
   check:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       - name: testing what various refs print as
-        run: echo "ref - ${{ github.ref }} ref_name - ${{ github.ref_name }}" 
+        run: echo "ref - ${{ github.ref }} ref_name - ${{ github.ref_name }} ref head ${GITHUB_HEAD_REF}" 
       - name: Get git diff to feed to script
-        run: git diff main..${{ github.ref }} > git_diff.txt
+        run: git diff origin/main..origin/${{ github.ref }} > git_diff.txt
       - name: peek at diff to make sure it looks right
         run: cat git_diff.txt
