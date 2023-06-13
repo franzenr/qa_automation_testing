@@ -1,4 +1,8 @@
+<!--
+
 module_type: my own invented type
 title: 
-version: 
+version: 1.0.0
 author:
+
+-->

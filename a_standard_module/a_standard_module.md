@@ -1,5 +1,11 @@
+<!--
+
 module_type: standard
-title: 
-version: 
-author:
+title: Intro to Basketweaving
+version: 1.0.0
+author: 
 standard_specific:
+
+-->
+
+# Intro to basketweaving
