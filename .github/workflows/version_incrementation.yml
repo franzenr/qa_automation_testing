@@ -6,13 +6,16 @@ on:
 
 jobs:
   check:
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     steps:
       - uses: actions/checkout@v3
         with: 
           fetch-depth: 2
-      - name: set default shell to bash instead of dash
-        run: sudo dpkg-reconfigure dash
+      - name: install pcregrep & gawk
+        run: |
+        brew update
+        brew install pcregrep
+        brew install gawk
       - name: Get git diff to feed to script
         run: |
           git fetch origin main
