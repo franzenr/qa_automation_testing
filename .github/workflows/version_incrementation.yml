@@ -1,0 +1,18 @@
+name: Check modules in PR for version incrementation
+on:
+  pull_request:
+    branches: [ "main" ]
+    types: [opened, synchronize]
+
+    # for manual running from Actions tab while figuring out
+  workflow_dispatch:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Get git diff to feed to script
+        run: git diff main..${{ github.ref_name }} > git_diff.txt
+      - name: peek at diff to make sure it looks right
+        run: cat git_diff.txt
