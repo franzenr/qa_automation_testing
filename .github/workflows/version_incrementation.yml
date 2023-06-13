@@ -14,7 +14,7 @@ jobs:
       - name: install pcregrep & gawk
         run: |
           brew update
-          brew install pcregrep
+          brew install pcre
           brew install gawk
       - name: Get git diff to feed to script
         run: |
