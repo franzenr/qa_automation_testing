@@ -1,6 +1,6 @@
 awk 'BEGIN { RS = "diff --git" }   # splits diff file such that each file represented in the diff is treated as an individual record. each record is processed individually with the below statements
 { 
-    if (system( "bash is_module.sh "$1 ) == 0 ) 
+    if (system( "bash assets/is_module.sh "$1 ) == 0 ) 
         { 
             if ( $0 ~ /\/dev\/null/ ) # is this a module file being uploaded for the first time? 
                 { 
@@ -27,7 +27,7 @@ awk 'BEGIN { RS = "diff --git" }   # splits diff file such that each file repres
             #do nothing, as only modules need to be checked for version number incrementation. 
         }
     
-} ' $1 #also run against fake-diff-correct-only.txt 
+} ' $1 
 
 if [[ -s version_issues ]] # if file size > 0, ie there are issues with any of the modules
     then 
