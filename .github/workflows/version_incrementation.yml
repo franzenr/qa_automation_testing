@@ -11,8 +11,8 @@ jobs:
       - uses: actions/checkout@v3
         with: 
           fetch-depth: 2
-      - name: testing what various refs print as
-        run: echo "ref - ${{ github.ref }} ref_name - ${{ github.ref_name }} ref head ${{ GITHUB.HEAD_REF }}" 
+      - name: checking on bash
+        run: /bin/bash --version
       - name: Get git diff to feed to script
         run: |
           git fetch origin main
