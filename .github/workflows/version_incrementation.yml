@@ -9,6 +9,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+        with: 
+          fetch-depth: 2
       - name: testing what various refs print as
         run: echo "ref - ${{ github.ref }} ref_name - ${{ github.ref_name }} ref head ${GITHUB_HEAD_REF}" 
       - name: Get git diff to feed to script
