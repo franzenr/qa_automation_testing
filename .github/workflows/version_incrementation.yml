@@ -20,5 +20,7 @@ jobs:
         run: |
           git fetch origin main
           git diff origin/main HEAD > git_diff.txt
+      - name: check git diff
+        run: cat git_diff.txt
       - name: Check version numbers
-        run: bash ./assets/check_versions.sh git_diff.txt
+        run: ./assets/check_versions.sh git_diff.txt
