@@ -1,9 +1,9 @@
 name: Check module header content
 on:
-  pull_request:
-    branches: [ "main" ]
-    types: [opened, synchronize]
-
+ # pull_request:
+   # branches: [ "main" ]
+   # types: [opened, synchronize]
+#temporarily turned off running on PR so not needlessly running this action over and over again while working on figuring out version
     # for manual running from Actions tab while figuring out
   workflow_dispatch:
 
