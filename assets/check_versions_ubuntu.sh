@@ -1,6 +1,6 @@
-gawk 'BEGIN { RS = "diff --git" } { print system( echo $SHELL )}   # splits diff file such that each file represented in the diff is treated as an individual record. each record is processed individually with the below statements
+awk 'BEGIN { RS = "diff --git" } { print system( echo $SHELL )}   # splits diff file such that each file represented in the diff is treated as an individual record. each record is processed individually with the below statements
 { 
-    if (system( " bash assets/is_module.sh "$1 ) == 0 ) 
+    if (system( " bash assets/is_module_ubuntu.sh "$1 ) == 0 ) 
         { 
             if ( $0 ~ /\/dev\/null/ ) # is this a module file being uploaded for the first time? 
                 { 
@@ -13,7 +13,7 @@ gawk 'BEGIN { RS = "diff --git" } { print system( echo $SHELL )}   # splits diff
                 { 
                     version_line_indexes=match ($0, /([+-]version:[^\n]*\n)+/) # gets the starting index of where the pattern is matched, sets RSTART to that value
                     extracted_version_lines=substr($0,RSTART,RLENGTH) # pulls out the substring that matches.
-                    system( "issue=$(grep \"[+-]version:\" <<<  \" "extracted_version_lines " \"| tr -d \"[-+]version:\"| bash assets/version_values_comparison.sh); if [ -n \"$issue\" ]; then echo "$1": $issue >> version_issues ; fi") 
+                    system( "issue=$(grep \"[+-]version:\" <<<  \" "extracted_version_lines " \"| tr -d \"[-+]version:\"| bash assets/version_values_comparison_ubuntu.sh); if [ -n \"$issue\" ]; then echo "$1": $issue >> version_issues ; fi") 
                     # trims ending newline by grepping for only lines with +/- version, then trims the line to just contain version number itself. if issue string is not null (ie, value comparison script returns issue messages), adds messages to list of issues. 
                     # 
                 }
