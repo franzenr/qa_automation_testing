@@ -9,6 +9,12 @@ else
     exit 1
 fi
 
+# Rest of the script, using a while loop to read the contents of git_diff_contents line by line
+while IFS= read -r line; do
+    # Process each line using awk and other tools
+    echo "$line" | awk '{print \$1, \$2}'
+done <<< "$git_diff_contents"
+
 awk 'BEGIN { RS = "diff --git" }   # splits diff file such that each file represented in the diff is treated as an individual record. each record is processed individually with the below statements
 {
     if (system( "bash assets/is_module_ubuntu.sh " $1 ) == 0 ) 
