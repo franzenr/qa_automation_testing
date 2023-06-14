@@ -29,7 +29,6 @@ awk 'BEGIN { RS = "diff --git" }   # splits diff file such that each file repres
         }
     
 } ' $1
-
 if [[ -s version_issues ]] # if file size > 0, ie there are issues with any of the modules
     then 
         echo "Issues with version numbers:" 
