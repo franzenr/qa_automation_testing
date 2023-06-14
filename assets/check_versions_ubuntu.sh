@@ -1,3 +1,14 @@
+#!/bin/bash
+
+git_diff_file="git_diff.txt"
+
+if [ -f "$git_diff_file" ]; then
+    git_diff_contents=$(cat "$git_diff_file")
+else
+    echo "Error: File $git_diff_file not found"
+    exit 1
+fi
+
 awk 'BEGIN { RS = "diff --git" }   # splits diff file such that each file represented in the diff is treated as an individual record. each record is processed individually with the below statements
 {
     if (system( "bash assets/is_module_ubuntu.sh " $1 ) == 0 ) 
@@ -27,7 +38,7 @@ awk 'BEGIN { RS = "diff --git" }   # splits diff file such that each file repres
             #do nothing, as only modules need to be checked for version number incrementation. 
         }
     
-} ' $1
+} ' git_diff_contents
 
 if [[ -s version_issues ]] # if file size > 0, ie there are issues with any of the modules
     then 
