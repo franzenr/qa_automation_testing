@@ -1,5 +1,5 @@
-awk 'BEGIN { RS = "diff --git" } { print system( echo $SHELL )}   # splits diff file such that each file represented in the diff is treated as an individual record. each record is processed individually with the below statements
-{ print $1 
+awk 'BEGIN { RS = "diff --git" }   # splits diff file such that each file represented in the diff is treated as an individual record. each record is processed individually with the below statements
+{ print "this is $1: " $1 
     if (system( bash assets/is_module_ubuntu.sh $1 ) == 0 ) 
         { 
             if ( $0 ~ /\/dev\/null/ ) # is this a module file being uploaded for the first time? 
