@@ -3,8 +3,7 @@ on:
    pull_request:
     branches: [ "main" ]
     types: [opened, synchronize]
-#turning off temporarily  -- jk turing back on 
-  workflow_dispatch:
+   workflow_dispatch:
   
 jobs:
   check:
