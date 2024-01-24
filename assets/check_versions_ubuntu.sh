@@ -1,20 +1,20 @@
-rm -f version_issues #remove current version of file, if any. Supresses error/warning if file does not exist. Needed during development, should be able to remove when actually deploying.
-gawk 'BEGIN { RS = "diff --git" }   # splits diff file such that each file represented in the diff is treated as an individual record. each record is processed individually with the below statements
-{ 
-    if (system( "bash is_module.sh "$1 ) == 0 ) 
+#!/bin/bash
+awk 'BEGIN { RS = "diff --git" }   # splits diff file such that each file represented in the diff is treated as an individual record. each record is processed individually with the below statements
+{
+    if (system( "bash assets/is_module_ubuntu.sh " $1 ) == 0 ) 
         { 
             if ( $0 ~ /\/dev\/null/ ) # is this a module file being uploaded for the first time? 
                 { 
                     version_line_indexes=match ($0, /\+version:[^\n]+/) # gets the starting index of where the pattern is matched, sets RSTART to that value, and RLENGTH to the length of pattern match.
                     extracted_version_line=substr($0, RSTART, RLENGTH)  # pulls out the substring that matches.
-                    system( "version_number=$(echo " extracted_version_line " | tr -d \"\\+version:\"); if [ $version_number != \"1.0.0\" ]; then echo \"New module " $1 " version number needs to be 1.0.0\" >> version_issues ; fi  " )
+                    system( "version_number=$(echo " extracted_version_line " | tr -d \"\\+version:\"); if [ $version_number != \"1.0.0\" ]; then echo \"New module "$1" version number needs to be 1.0.0\" >> version_issues ; fi  " )
                     # trims the extracted version line to now just contain the version number itself. Checks if it is equal to 1.0.0, and adds message to list of issues if not. 
                 }
             else if ( $0 ~ /\+version:/) # is there a new version line? 
                 { 
                     version_line_indexes=match ($0, /([+-]version:[^\n]*\n)+/) # gets the starting index of where the pattern is matched, sets RSTART to that value
                     extracted_version_lines=substr($0,RSTART,RLENGTH) # pulls out the substring that matches.
-                    system( "issue=$(grep '[+-]version:' <<<  \" "extracted_version_lines " \"| tr -d \"[-+]version:\"| bash version_values_comparison.sh); if [ -n \"$issue\" ]; then echo "$1": $issue >> version_issues ; fi") 
+                    system( "issue=$(grep \"[+-]version:\" <<<  \""extracted_version_lines "\"| tr -d \"[-+]version:\"| bash assets/version_values_comparison_ubuntu.sh); if [ -n \"$issue\" ]; then echo \""$1": $issue\" >> version_issues ; fi") 
                     # trims ending newline by grepping for only lines with +/- version, then trims the line to just contain version number itself. if issue string is not null (ie, value comparison script returns issue messages), adds messages to list of issues. 
                     # 
                 }
@@ -28,7 +28,7 @@ gawk 'BEGIN { RS = "diff --git" }   # splits diff file such that each file repre
             #do nothing, as only modules need to be checked for version number incrementation. 
         }
     
-} ' ../test_files/fake-diff.txt #also run against fake-diff-correct-only.txt 
+} ' "$1"
 
 if [[ -s version_issues ]] # if file size > 0, ie there are issues with any of the modules
     then 

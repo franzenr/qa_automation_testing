@@ -1,4 +1,3 @@
-#!/bin/bash
 awk -F "." 'BEGIN {FS="\\.|\n."; RS = "\n\n" } 
 {
     if ( NF != 6 ) # if more or less than 6 fields are parsed, that means there is something wrong either with the formatting of the version numbers, or there is more than one version line being added to the module.
@@ -52,4 +51,4 @@ awk -F "." 'BEGIN {FS="\\.|\n."; RS = "\n\n" }
                         }
                 }
         } 
-} '
+} ' 

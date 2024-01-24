@@ -1,22 +1,17 @@
-name: Check modules in PR for version incrementation
+name: ubuntu Check modules in PR for version incrementation
 on:
-   pull_request:
+  pull_request:
     branches: [ "main" ]
     types: [opened, synchronize]
-   workflow_dispatch:
-  
+  workflow_dispatch:
+
 jobs:
   check:
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
         with: 
           fetch-depth: 2
-      - name: install pcregrep & gawk
-        run: |
-          brew update
-          brew install pcre
-          brew install gawk
       - name: Get git diff to feed to script
         run: |
           git fetch origin main
@@ -24,4 +19,4 @@ jobs:
       - name: check git diff
         run: cat git_diff.txt
       - name: Check version numbers
-        run: bash assets/check_versions.sh git_diff.txt
+        run: bash assets/check_versions_ubuntu.sh git_diff.txt
