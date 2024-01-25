@@ -14,7 +14,7 @@ awk 'BEGIN { RS = "diff --git" }   # splits diff file such that each file repres
                 { 
                     version_line_indexes=match ($0, /([+-]version:[^\n]*\n)+/) # gets the starting index of where the pattern is matched, sets RSTART to that value
                     extracted_version_lines=substr($0,RSTART,RLENGTH) # pulls out the substring that matches.
-                    system( "bash -c issue=$(grep \"[+-]version:\" <<<  \""extracted_version_lines "\"| tr -d \"[-+]version:\"| bash assets/version_values_comparison_ubuntu.sh); if [ -n \"$issue\" ]; then echo \""$1": $issue\" >> version_issues ; fi") 
+                    system("bash -c '\''issue=$(grep \"[+-]version:\" <<<  \""extracted_version_lines "\"| tr -d \"[-+]version:\"| bash assets/version_values_comparison_ubuntu.sh); if [ -n \"$issue\" ]; then echo \""$1": $issue\" >> version_issues ; fi'\''")
                     # trims ending newline by grepping for only lines with +/- version, then trims the line to just contain version number itself. if issue string is not null (ie, value comparison script returns issue messages), adds messages to list of issues. 
                     # 
                 }
